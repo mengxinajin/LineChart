@@ -73,7 +73,9 @@ static int _xCount;
         shapeLayer2.fillColor = [UIColor clearColor].CGColor;
         shapeLayer2.borderWidth = 2.0;
         [shapeLayer2 setLineJoin:kCALineJoinBevel];
-        [shapeLayer2 setLineDashPattern:@[@10,@5]];
+        if (self.isYDash) {
+            [shapeLayer2 setLineDashPattern:@[@10,@5]];
+        }
         [self.subviews[0].layer addSublayer:shapeLayer2];
         if (i == 0) {
             y_start = Y;

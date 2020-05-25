@@ -45,6 +45,11 @@
     self.chartView.minValue = 0;
     self.chartView.maxValue = 100;
     self.chartView.isDoubleX = self.isDoubleX;
+    if (self.isDoubleX) {
+        self.chartView.isYDash = NO;
+    }else{
+        self.chartView.isYDash = YES;
+    }
     NSArray *x_names = @[@"清醒",@"一般",@"黄金"];
     NSArray *xValue = @[@0,@50,@100];
     NSArray *x_colors = @[[UIColor redColor],[UIColor orangeColor],[UIColor yellowColor]];

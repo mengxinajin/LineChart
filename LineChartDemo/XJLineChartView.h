@@ -25,7 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** 是否是双X轴*/
 @property (nonatomic,assign) BOOL isDoubleX;
-
+/** Y轴横线是否是虚线 */
+@property (nonatomic,assign) BOOL isYDash;
 
 /**
  *  画轴线
