@@ -6,7 +6,7 @@
 
 就是描点画线加动画，支持自定义X轴、Y轴的文案和颜色等，没有太难的。
 
-[文档介绍](https://www.jianshu.com/p/a57894c588a7)
+[demo介绍](https://www.jianshu.com/p/a57894c588a7)
 
 
 
