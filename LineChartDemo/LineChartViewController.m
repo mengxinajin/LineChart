@@ -50,9 +50,9 @@
     }else{
         self.chartView.isYDash = YES;
     }
-    NSArray *x_names = @[@"清醒",@"一般",@"黄金"];
-    NSArray *xValue = @[@0,@50,@100];
-    NSArray *x_colors = @[[UIColor redColor],[UIColor orangeColor],[UIColor yellowColor]];
+    NSArray *x_names = @[@"清醒",@"一般",@"较好",@"黄金"];
+    NSArray *xValue = @[@0,@33,@66,@100];
+    NSArray *x_colors = @[[UIColor redColor],[UIColor orangeColor],[UIColor cyanColor],[UIColor yellowColor]];
     NSMutableArray *xAxis = [NSMutableArray new];
     for (int i = 0; i < x_names.count; i++) {
         XJYAxisModel * model = [XJYAxisModel new];

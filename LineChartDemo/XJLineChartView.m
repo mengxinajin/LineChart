@@ -9,7 +9,7 @@
 #import "XJLineChartView.h"
 #define fromTag 999
 #define MARGIN            40   // 坐标轴与画布间距
-#define Y_EVERY_MARGIN    100   // y轴每一个值的间隔数
+static float Y_EVERY_MARGIN ;    // y轴每一个值的间隔数
 static CGRect myFrame;
 static int _xCount;
 @interface XJLineChartView ()
@@ -51,11 +51,11 @@ static int _xCount;
 }
 - (void)drawLineChartViewWithX_Value_Names:(NSMutableArray<XJYAxisModel *> *)y_names xCount:(int)xCount{
     _xCount = xCount;
-    
+    Y_EVERY_MARGIN = (CGRectGetHeight(myFrame) - MARGIN *2 - 10)/(y_names.count - 1);
     //Y轴
     for (int i=0; i<y_names.count; i++) {
         XJYAxisModel *model = y_names[i];
-      CGFloat Y = CGRectGetHeight(myFrame)-MARGIN-Y_EVERY_MARGIN*i;
+      CGFloat Y = CGRectGetHeight(myFrame) - MARGIN - Y_EVERY_MARGIN*i;
         NSLog(@"Y-5 = %.2f",Y-5);
       UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, Y-5, MARGIN, 10)];
       textLabel.text = model.title;
@@ -94,7 +94,7 @@ static int _xCount;
         [xLabels addObject:textLabel];
         if (self.isDoubleX) {
             UILabel *textLabel = [self createLabelWithFont:self.y_TextFont withTextColor:[UIColor lightGrayColor] textAlignment:NSTextAlignmentCenter];
-            textLabel.frame = CGRectMake(X, MARGIN - 10, space, 35);
+            textLabel.frame = CGRectMake(X, 10, space, 35);
            [self addSubview:textLabel];
             [xTopLabels addObject:textLabel];
         }
@@ -102,7 +102,7 @@ static int _xCount;
         CGPoint point = CGPointMake(textLabel.bounds.size.width * 0.5 +X, CGRectGetHeight(myFrame)-MARGIN);
         UIBezierPath *path = [UIBezierPath bezierPath];
         [path moveToPoint:point];
-        [path addLineToPoint:CGPointMake(point.x, CGRectGetHeight(myFrame)-MARGIN-Y_EVERY_MARGIN*2)];
+        [path addLineToPoint:CGPointMake(point.x, 45)];
         CAShapeLayer *shapeLayer2 = [CAShapeLayer layer];
        shapeLayer2.path = path.CGPath;
        shapeLayer2.strokeColor = [[UIColor lightGrayColor] CGColor];
