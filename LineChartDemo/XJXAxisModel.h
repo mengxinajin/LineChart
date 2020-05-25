@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "XJAxisModel.h"
-NS_ASSUME_NONNULL_BEGIN
 
 @interface XJXAxisModel : XJAxisModel
 
@@ -16,4 +15,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-NS_ASSUME_NONNULL_END
+
