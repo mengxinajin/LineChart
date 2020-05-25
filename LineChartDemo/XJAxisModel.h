@@ -19,9 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 /** value */
 @property (nonatomic,strong) NSNumber* value;
 /** 是否显示轴线 */
-@property (nonatomic,assign) BOOL isShow;
+//@property (nonatomic,assign) BOOL isShow;
 /** 是否是虚线 */
-@property (nonatomic,assign) BOOL isDash;
+//@property (nonatomic,assign) BOOL isDash;
 /** font */
 @property (nonatomic,strong) UIFont *textFont;
 
