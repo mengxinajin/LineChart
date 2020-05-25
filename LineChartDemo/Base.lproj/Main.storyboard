@@ -47,11 +47,28 @@
                                     <action selector="lineChartClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pDk-5e-bcb"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MlM-Pn-I0x">
+                                <rect key="frame" x="117" y="248" width="180" height="60"/>
+                                <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="180" id="m30-Wm-EDW"/>
+                                    <constraint firstAttribute="height" constant="60" id="qwp-5S-xl8"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <state key="normal" title="双x轴曲线图">
+                                    <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="doubleXChart:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JnT-SI-06R"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="sk4-7Y-QFw" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="3ss-eC-hcY"/>
+                            <constraint firstItem="MlM-Pn-I0x" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="KD9-Zi-8Ik"/>
                             <constraint firstItem="sk4-7Y-QFw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gAq-pk-ChI"/>
+                            <constraint firstItem="MlM-Pn-I0x" firstAttribute="top" secondItem="sk4-7Y-QFw" secondAttribute="bottom" constant="50" id="jiZ-Xf-Ub7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

@@ -22,6 +22,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) float minValue;
 /** y轴字体大小 */
 @property (nonatomic,strong) UIFont *y_TextFont;
+
+/** 是否是双X轴*/
+@property (nonatomic,assign) BOOL isDoubleX;
+
+
 /**
  *  画轴线
  *  @param y_names      Y轴值的所有值名称
@@ -29,12 +34,21 @@ NS_ASSUME_NONNULL_BEGIN
  */
 -(void)drawLineChartViewWithX_Value_Names:(NSMutableArray<XJYAxisModel *> *)y_names xCount:(int)xCount;
 
-/// 设置x轴的文案
-/// @param xAxis <#xAxis description#>
-//- (void)setXAxisData:(NSArray< XJXAxisModel * >*)xAxis;
 
+/// 设置数据（曲线数据、x轴文案）
+/// @param datas <#datas description#>
+/// @param xAxis <#xAxis description#>
 - (void)drawLineChartViewWithDataModels:(NSArray<XJDataModel *> *)datas withXAxisData:(NSArray< XJXAxisModel * >*)xAxis;
+
+///  设置数据（曲线数据、双x轴文案）
+/// @param datas <#datas description#>
+/// @param xAxis <#xAxis description#>
+/// @param topXAxis <#topXAxis description#>
+- (void)drawLineChartViewWithDataModels:(NSArray<XJDataModel *> *)datas withXAxisData:(NSArray< XJXAxisModel * >*)xAxis withTopXAxisData:(NSArray< XJXAxisModel * >*)topXAxis;
+
+
 - (void)reset;
+
 @end
 
 NS_ASSUME_NONNULL_END

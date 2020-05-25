@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 /** title */
 @property (nonatomic,strong) NSString *title;
 /** color */
-@property (nonatomic,strong)  UIColor * clolor;//轴线颜色
+@property (nonatomic,strong)  UIColor * color;//轴线颜色
 /** value */
 @property (nonatomic,strong) NSNumber* value;
 /** 是否显示轴线 */

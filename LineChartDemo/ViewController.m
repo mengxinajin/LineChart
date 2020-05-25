@@ -26,9 +26,16 @@
 }
 - (IBAction)lineChartClick:(id)sender {
     LineChartViewController *lineVC = [[LineChartViewController alloc] init];
-    
+    lineVC.isDoubleX = NO;
     [self.navigationController pushViewController:lineVC animated:YES];
 }
 
+- (IBAction)doubleXChart:(id)sender {
+    
+    LineChartViewController *lineVC = [[LineChartViewController alloc] init];
+    lineVC.isDoubleX = YES;
+    [self.navigationController pushViewController:lineVC animated:YES];
+    
+}
 
 @end

@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LineChartViewController : UIViewController
 
+/** 双x轴？ */
+@property (nonatomic,assign) BOOL isDoubleX;
+
 @end
 
 NS_ASSUME_NONNULL_END

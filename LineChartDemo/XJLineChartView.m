@@ -30,6 +30,7 @@ static int _xCount;
     CAShapeLayer *shapeLayer;
     NSMutableArray *pointShapeLayers;
     NSMutableArray *xLabels;
+    NSMutableArray *xTopLabels;
 }
 
 
@@ -44,6 +45,7 @@ static int _xCount;
         pointShapeLayers = [NSMutableArray new];
         xLabels = [NSMutableArray new];
          myFrame = frame;
+        xTopLabels = [NSMutableArray new];
     }
     return self;
 }
@@ -59,7 +61,7 @@ static int _xCount;
       textLabel.text = model.title;
       textLabel.font = self.y_TextFont?self.y_TextFont:[UIFont systemFontOfSize:10];
       textLabel.textAlignment = NSTextAlignmentCenter;
-      textLabel.textColor = model.clolor;
+      textLabel.textColor = model.color;
       [self addSubview:textLabel];
         UIBezierPath *path1 = [UIBezierPath bezierPath];
         [path1 moveToPoint: CGPointMake(MARGIN + 1, Y)];
@@ -67,7 +69,7 @@ static int _xCount;
         path1.lineWidth = 2;
         CAShapeLayer *shapeLayer2 = [CAShapeLayer layer];
         shapeLayer2.path = path1.CGPath;
-        shapeLayer2.strokeColor = [model.clolor CGColor];
+        shapeLayer2.strokeColor = [model.color CGColor];
         shapeLayer2.fillColor = [UIColor clearColor].CGColor;
         shapeLayer2.borderWidth = 2.0;
         [shapeLayer2 setLineJoin:kCALineJoinBevel];
@@ -84,17 +86,21 @@ static int _xCount;
     
     for (int i=0; i<xCount; i++) {
         CGFloat X = MARGIN + space*i;
-        UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(X, CGRectGetHeight(myFrame)-MARGIN, space, 25)];
-        textLabel.text = @"";
-        textLabel.font = self.y_TextFont;
-        textLabel.textAlignment = NSTextAlignmentCenter;
-        textLabel.textColor = [UIColor blueColor];
+        UILabel *textLabel = [self createLabelWithFont:self.y_TextFont withTextColor:[UIColor lightGrayColor] textAlignment:NSTextAlignmentCenter];
+        textLabel.frame = CGRectMake(X, CGRectGetHeight(myFrame)-MARGIN, space, 25);
         [self addSubview:textLabel];
         [xLabels addObject:textLabel];
+        if (self.isDoubleX) {
+            UILabel *textLabel = [self createLabelWithFont:self.y_TextFont withTextColor:[UIColor lightGrayColor] textAlignment:NSTextAlignmentCenter];
+            textLabel.frame = CGRectMake(X, MARGIN - 10, space, 35);
+           [self addSubview:textLabel];
+            [xTopLabels addObject:textLabel];
+        }
+
         CGPoint point = CGPointMake(textLabel.bounds.size.width * 0.5 +X, CGRectGetHeight(myFrame)-MARGIN);
         UIBezierPath *path = [UIBezierPath bezierPath];
         [path moveToPoint:point];
-        [path addLineToPoint:CGPointMake(point.x, MARGIN)];
+        [path addLineToPoint:CGPointMake(point.x, CGRectGetHeight(myFrame)-MARGIN-Y_EVERY_MARGIN*2)];
         CAShapeLayer *shapeLayer2 = [CAShapeLayer layer];
        shapeLayer2.path = path.CGPath;
        shapeLayer2.strokeColor = [[UIColor lightGrayColor] CGColor];
@@ -111,6 +117,15 @@ static int _xCount;
     }
     
 }
+- (UILabel *)createLabelWithFont:(UIFont *)font withTextColor:(UIColor *)textColor textAlignment:(NSTextAlignment)alignment{
+    UILabel *textLabel = [[UILabel alloc] init];
+    textLabel.text = @"";
+    textLabel.font = font;
+    textLabel.textAlignment = alignment;
+    textLabel.textColor = textColor;
+    return textLabel;
+    
+}
 - (void)setXAxisData:(NSArray< XJXAxisModel * >*)xAxis{
     if (xAxis.count == 0) {
         return;
@@ -119,7 +134,7 @@ static int _xCount;
         XJXAxisModel*model = xAxis[i];
         [self.subviews enumerateObjectsUsingBlock:^(__kindof UILabel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if (obj.tag == fromTag + i) {
-                obj.textColor = model.clolor;
+                obj.textColor = model.color;
                 obj.font = model.textFont?model.textFont : [UIFont systemFontOfSize:10];
                 obj.text = model.title;
                 *stop = YES;
@@ -136,71 +151,15 @@ static int _xCount;
     value_xSpace = (_max - _min) /(_xCount - 1);
     scaleX = x_width/(_max - _min);
     scaleY = y_height / (self.maxValue - self.minValue);// yheight/value_max ->200pi / 100   = 2
-    NSLog(@"start = %.2f,width = %.2f,space = %.2f,y_start = %.2f,y_height = %.2f,scaleX = %.2f,scaleY = %.2f",x_start,x_width,x_space,y_start,y_height,scaleX,scaleY);
-    
-    
 }
-/**
- *  画坐标轴
- */
--(void)drawXYLine:(NSMutableArray *)x_names{
-    
-UIBezierPath *path = [UIBezierPath bezierPath];
-    
-    NSArray *colors = @[[UIColor orangeColor],[UIColor blueColor],[UIColor redColor]];
-    //1.添加索引格文字
-    //X轴
-    for (int i=0; i<x_names.count; i++) {
-        CGFloat X = MARGIN + MARGIN*i;
-        UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(X, CGRectGetHeight(myFrame)-MARGIN, MARGIN, 20)];
-        textLabel.text = x_names[i];
-        textLabel.font = [UIFont systemFontOfSize:10];
-        textLabel.textAlignment = NSTextAlignmentCenter;
-        textLabel.textColor = [UIColor blueColor];
-        [self addSubview:textLabel];
-        CGPoint point = CGPointMake(textLabel.bounds.size.width * 0.5 +X, CGRectGetHeight(myFrame)-MARGIN);
-        [path moveToPoint:point];
-        [path addLineToPoint:CGPointMake(textLabel.bounds.size.width * 0.5 +X, MARGIN)];
+- (void)setTopXAxisData:(NSArray< XJXAxisModel * >*)xAxis{
+    for (int i = 0; i < xAxis.count; i++) {
+       UILabel *label = [xTopLabels objectAtIndex:i];
+        XJAxisModel *model = [xAxis objectAtIndex:i];
+        label.text = model.title;
+        label.textColor = model.color;
+        label.font = model.textFont;
     }
-    //Y轴
-    for (int i=0; i<3; i++) {
-        CGFloat Y = CGRectGetHeight(myFrame)-MARGIN-Y_EVERY_MARGIN*i;
-        UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, Y-5, MARGIN, 10)];
-        textLabel.text = [NSString stringWithFormat:@"%d",50*i];
-        textLabel.font = [UIFont systemFontOfSize:10];
-        textLabel.textAlignment = NSTextAlignmentCenter;
-        textLabel.textColor = colors[i];
-        [self addSubview:textLabel];
-    }
-    
-   
-    
-    //2.渲染路径
-    CAShapeLayer *shapeLayer = [CAShapeLayer layer];
-    shapeLayer.path = path.CGPath;
-    shapeLayer.strokeColor = [UIColor lightGrayColor].CGColor;
-    shapeLayer.fillColor = [UIColor clearColor].CGColor;
-    shapeLayer.borderWidth = 2.0;
-    [self.subviews[0].layer addSublayer:shapeLayer];
-//
-    //Y轴
-    for (int i=0; i<3; i++) {
-        UIBezierPath *path1 = [UIBezierPath bezierPath];
-        CGFloat Y = CGRectGetHeight(myFrame)- MARGIN - Y_EVERY_MARGIN * i;
-        [path1 moveToPoint: CGPointMake(MARGIN + 1, Y)];
-        [path1 addLineToPoint: CGPointMake(self.frame.size.width, Y)];
-        path1.lineWidth = 2;
-        CAShapeLayer *shapeLayer2 = [CAShapeLayer layer];
-        shapeLayer2.path = path1.CGPath;
-        shapeLayer2.strokeColor = [colors[i] CGColor];
-        shapeLayer2.fillColor = [UIColor clearColor].CGColor;
-        shapeLayer2.borderWidth = 2.0;
-        [shapeLayer2 setLineJoin:kCALineJoinBevel];
-        [shapeLayer2 setLineDashPattern:@[@10,@5]];
-        [self.subviews[0].layer addSublayer:shapeLayer2];
-    }
-    
-    
 }
 - (void)reset{
 //    清空线，清空x轴描述
@@ -212,11 +171,21 @@ UIBezierPath *path = [UIBezierPath bezierPath];
     [xLabels enumerateObjectsUsingBlock:^(UILabel * obj, NSUInteger idx, BOOL * _Nonnull stop) {
         obj.text = @"";
     }];
+    [xTopLabels enumerateObjectsUsingBlock:^(UILabel* obj, NSUInteger idx, BOOL * _Nonnull stop) {
+         obj.text = @"";
+    }];
 }
 - (void)drawLineChartViewWithDataModels:(NSArray<XJDataModel *> *)datas withXAxisData:(NSArray< XJXAxisModel * >*)xAxis{
+    
+    [self drawLineChartViewWithDataModels:datas withXAxisData:xAxis withTopXAxisData:@[]];
+}
+- (void)drawLineChartViewWithDataModels:(NSArray<XJDataModel *> *)datas withXAxisData:(NSArray< XJXAxisModel * >*)xAxis withTopXAxisData:(nonnull NSArray<XJXAxisModel *> *)topXAxis{
     [self reset];
 //    1. 设置x轴文案
     [self setXAxisData:xAxis];
+    if (self.isDoubleX && topXAxis.count > 0) {
+        [self setTopXAxisData:topXAxis];
+    }
     if (datas.count == 0) {
         return;
     }

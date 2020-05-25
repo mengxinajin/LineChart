@@ -24,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    xCount = 8;
+    xCount = 7;
     float chartH = 300;
     self.title = @"不等距曲线图";
     self.edgesForExtendedLayout = UIRectEdgeBottom;
@@ -44,13 +44,14 @@
     self.chartView.y_TextFont = [UIFont systemFontOfSize:14];
     self.chartView.minValue = 0;
     self.chartView.maxValue = 100;
+    self.chartView.isDoubleX = self.isDoubleX;
     NSArray *x_names = @[@"清醒",@"一般",@"黄金"];
     NSArray *xValue = @[@0,@50,@100];
     NSArray *x_colors = @[[UIColor redColor],[UIColor orangeColor],[UIColor yellowColor]];
     NSMutableArray *xAxis = [NSMutableArray new];
     for (int i = 0; i < x_names.count; i++) {
         XJYAxisModel * model = [XJYAxisModel new];
-        model.clolor = x_colors[i];
+        model.color = x_colors[i];
         model.value = xValue[i];
         model.title = x_names[i];
         [xAxis addObject:model];
@@ -66,8 +67,8 @@
     for (int i = 0 ; i < xCount; i++) {
         XJXAxisModel *model  = [XJXAxisModel new];
         model.value = [NSNumber numberWithFloat: i * space];
-        model.title = [NSString stringWithFormat:@"12:0%d",i];
-        model.clolor = [UIColor whiteColor];
+        model.title = [NSString stringWithFormat:@"12.0%d",i+1];
+        model.color = [UIColor whiteColor];
         model.textFont = [UIFont systemFontOfSize:10];
         [xAxisArr addObject:model];
     }
@@ -76,6 +77,15 @@
 }
 - (void)refreshData{
     static int a = 0;
+    NSMutableArray *topdatas = [NSMutableArray new];
+   NSArray *titles = @[@"周一",@"周二",@"周三",@"周四",@"周五",@"周六",@"周日"];
+   for (int i = 0; i < xCount; i++) {
+       XJXAxisModel *model = [XJXAxisModel new];
+       model.title = titles[i];
+        model.color = [UIColor whiteColor];
+        model.textFont = [UIFont systemFontOfSize:10];
+       [topdatas addObject:model];
+   }
     if (a == 0) {
         NSMutableArray *datas = [NSMutableArray new];
             NSArray *valueXs = @[@0,@5,@11,@19,@25,@31,@39,@43,@51,@59,@70,@85,@90];
@@ -86,7 +96,7 @@
                 model.yValue = valueYs[i];
                 [datas addObject:model];
             }
-        [self.chartView drawLineChartViewWithDataModels:datas withXAxisData:[self setXAxis]];
+        [self.chartView drawLineChartViewWithDataModels:datas withXAxisData: [self setXAxis] withTopXAxisData:self.isDoubleX?topdatas:@[]];
         a = 1;
     }else{
         NSMutableArray *datas = [NSMutableArray new];
@@ -98,12 +108,12 @@
                 model.yValue = valueYs[i];
                 [datas addObject:model];
             }
-        [self.chartView drawLineChartViewWithDataModels:datas withXAxisData:[self setXAxis]];
+        [self.chartView drawLineChartViewWithDataModels:datas withXAxisData:[self setXAxis] withTopXAxisData:self.isDoubleX?topdatas:@[]];
         a = 0;
     }
     
 }
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [self.chartView drawLineChartViewWithDataModels:@[] withXAxisData:@[]];
+    [self.chartView drawLineChartViewWithDataModels:@[] withXAxisData:@[] withTopXAxisData:@[]];
 }
 @end
