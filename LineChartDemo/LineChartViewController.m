@@ -56,7 +56,6 @@
         [xAxis addObject:model];
     }
     [self.chartView drawLineChartViewWithX_Value_Names:xAxis xCount:xCount];
-//    [self setXAxis];
 }
 - (NSArray *)setXAxis{
 //    最大值和最小值 -> 每个轴线上的值 ， 比如最大值90，最小值是0，10条轴线(9个间隙)，则每条轴线的间距是10(0、10、20、30、40、50、60、70、80、90)
@@ -87,12 +86,7 @@
                 model.yValue = valueYs[i];
                 [datas addObject:model];
             }
-        //    [self.chartView setXAxisData:xAxisArr];
-            [UIView animateWithDuration:2.0 animations:^{
-        //        [self.chartView reset];
-            }completion:^(BOOL finished) {
-                [self.chartView drawLineChartViewWithDataModels:datas withXAxisData:[self setXAxis]];
-            }];
+        [self.chartView drawLineChartViewWithDataModels:datas withXAxisData:[self setXAxis]];
         a = 1;
     }else{
         NSMutableArray *datas = [NSMutableArray new];
@@ -104,12 +98,7 @@
                 model.yValue = valueYs[i];
                 [datas addObject:model];
             }
-        //    [self.chartView setXAxisData:xAxisArr];
-            [UIView animateWithDuration:2.0 animations:^{
-        //        [self.chartView reset];
-            }completion:^(BOOL finished) {
-                [self.chartView drawLineChartViewWithDataModels:datas withXAxisData:[self setXAxis]];
-            }];
+        [self.chartView drawLineChartViewWithDataModels:datas withXAxisData:[self setXAxis]];
         a = 0;
     }
     

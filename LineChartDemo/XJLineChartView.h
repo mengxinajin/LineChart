@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "XJLineChartHeader.h"
 // 线条类型
-typedef NS_ENUM(NSInteger, LineType) {
-    LineType_Straight, // 折线
-    LineType_Curve     // 曲线
-};
+//typedef NS_ENUM(NSInteger, LineType) {
+//    LineType_Straight, // 折线
+//    LineType_Curve     // 曲线
+//};
 NS_ASSUME_NONNULL_BEGIN
 
 @interface XJLineChartView : UIView
