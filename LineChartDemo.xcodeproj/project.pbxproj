@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8E2AC893247B71C200CF7AAE /* 效果图.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8E2AC892247B71C100CF7AAE /* 效果图.gif */; };
-		8E2AC895247B769800CF7AAE /* effect.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8E2AC894247B769800CF7AAE /* effect.gif */; };
+		8E2AC897247BB11B00CF7AAE /* effect.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8E2AC896247BB11B00CF7AAE /* effect.gif */; };
 		8E3767F6247679AF0004ED07 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3767F5247679AF0004ED07 /* AppDelegate.m */; };
 		8E3767F9247679AF0004ED07 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3767F8247679AF0004ED07 /* SceneDelegate.m */; };
 		8E3767FC247679AF0004ED07 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3767FB247679AF0004ED07 /* ViewController.m */; };
@@ -45,8 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		8E2AC892247B71C100CF7AAE /* 效果图.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "效果图.gif"; sourceTree = "<group>"; };
-		8E2AC894247B769800CF7AAE /* effect.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = effect.gif; sourceTree = "<group>"; };
+		8E2AC896247BB11B00CF7AAE /* effect.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = effect.gif; sourceTree = "<group>"; };
 		8E3767F1247679AF0004ED07 /* LineChartDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LineChartDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E3767F4247679AF0004ED07 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8E3767F5247679AF0004ED07 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -155,9 +153,8 @@
 				8E376800247679B00004ED07 /* Assets.xcassets */,
 				8E376802247679B00004ED07 /* LaunchScreen.storyboard */,
 				8E376805247679B00004ED07 /* Info.plist */,
+				8E2AC896247BB11B00CF7AAE /* effect.gif */,
 				8E376806247679B00004ED07 /* main.m */,
-				8E2AC892247B71C100CF7AAE /* 效果图.gif */,
-				8E2AC894247B769800CF7AAE /* effect.gif */,
 			);
 			path = LineChartDemo;
 			sourceTree = "<group>";
@@ -286,9 +283,8 @@
 			files = (
 				8E376804247679B00004ED07 /* LaunchScreen.storyboard in Resources */,
 				8E376801247679B00004ED07 /* Assets.xcassets in Resources */,
+				8E2AC897247BB11B00CF7AAE /* effect.gif in Resources */,
 				8E3767FF247679AF0004ED07 /* Main.storyboard in Resources */,
-				8E2AC893247B71C200CF7AAE /* 效果图.gif in Resources */,
-				8E2AC895247B769800CF7AAE /* effect.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
