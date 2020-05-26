@@ -27,6 +27,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) BOOL isDoubleX;
 /** Y轴横线是否是虚线 */
 @property (nonatomic,assign) BOOL isYDash;
+/** 无数据提示 */
+@property (nonatomic,strong) NSString *noDataDes;
+/** 无数据提示的颜色 ,默认黑色*/
+@property (nonatomic,strong) UIColor *noDataDesColor;
+/** 无数据提示的字体大小，默认18 */
+@property (nonatomic,strong) UIFont *noDataDesFont;
+
 
 /**
  *  画轴线

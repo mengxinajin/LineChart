@@ -31,6 +31,9 @@ static int _xCount;
     NSMutableArray *pointShapeLayers;
     NSMutableArray *xLabels;
     NSMutableArray *xTopLabels;
+    NSMutableArray *yLabels;
+    UILabel *nodataLabel;
+    UIView *backView;
 }
 
 
@@ -40,12 +43,16 @@ static int _xCount;
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         //背景视图
-         UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+         backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
          [self addSubview:backView];
         pointShapeLayers = [NSMutableArray new];
         xLabels = [NSMutableArray new];
          myFrame = frame;
         xTopLabels = [NSMutableArray new];
+        yLabels = [NSMutableArray new];
+        nodataLabel = [self createLabelWithFont:[UIFont systemFontOfSize:18]withTextColor:[UIColor blackColor] textAlignment:NSTextAlignmentCenter];
+        nodataLabel.frame = backView.frame;
+        [self addSubview:nodataLabel];
     }
     return self;
 }
@@ -55,14 +62,15 @@ static int _xCount;
     //Y轴
     for (int i=0; i<y_names.count; i++) {
         XJYAxisModel *model = y_names[i];
-      CGFloat Y = CGRectGetHeight(myFrame) - MARGIN - Y_EVERY_MARGIN*i;
+        CGFloat Y = CGRectGetHeight(myFrame) - MARGIN - Y_EVERY_MARGIN*i;
         NSLog(@"Y-5 = %.2f",Y-5);
-      UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, Y-5, MARGIN, 10)];
-      textLabel.text = model.title;
-      textLabel.font = self.y_TextFont?self.y_TextFont:[UIFont systemFontOfSize:10];
-      textLabel.textAlignment = NSTextAlignmentCenter;
-      textLabel.textColor = model.color;
-      [self addSubview:textLabel];
+        UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, Y-5, MARGIN, 10)];
+        textLabel.text = model.title;
+        textLabel.font = self.y_TextFont?self.y_TextFont:[UIFont systemFontOfSize:10];
+        textLabel.textAlignment = NSTextAlignmentCenter;
+        textLabel.textColor = model.color;
+        [self addSubview:textLabel];
+        [yLabels addObject:textLabel];
         UIBezierPath *path1 = [UIBezierPath bezierPath];
         [path1 moveToPoint: CGPointMake(MARGIN + 1, Y)];
         [path1 addLineToPoint: CGPointMake(self.frame.size.width - 5, Y)];
@@ -185,12 +193,26 @@ static int _xCount;
     [self reset];
 //    1. 设置x轴文案
     [self setXAxisData:xAxis];
+    if (datas.count == 0) {
+        nodataLabel.hidden = NO;
+        backView.hidden = YES;
+        [yLabels enumerateObjectsUsingBlock:^(UILabel * obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            obj.hidden = YES;
+        }];
+        nodataLabel.text = self.noDataDes;
+        nodataLabel.textColor = self.noDataDesColor;
+        nodataLabel.font = self.noDataDesFont;
+        return;
+    }
+    backView.hidden = NO;
+    nodataLabel.hidden = YES;
+    [yLabels enumerateObjectsUsingBlock:^(UILabel * obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        obj.hidden = NO;
+    }];
     if (self.isDoubleX && topXAxis.count > 0) {
         [self setTopXAxisData:topXAxis];
     }
-    if (datas.count == 0) {
-        return;
-    }
+   
 //    [shapeLayer removeFromSuperlayer];
     //2.获取目标值点坐标
     NSMutableArray *allPoints = [NSMutableArray array];
