@@ -45,7 +45,7 @@
     self.chartView.minValue = 0;
     self.chartView.maxValue = 100;
     self.chartView.isDoubleX = self.isDoubleX;
-    self.chartView.noDataDes = @"暂无数据";
+//    self.chartView.noDataDes = @"暂无数据";
     self.chartView.noDataDesColor = [UIColor whiteColor];
     self.chartView.noDataDesFont = [UIFont systemFontOfSize:25];
     if (self.isDoubleX) {

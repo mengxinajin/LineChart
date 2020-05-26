@@ -193,15 +193,17 @@ static int _xCount;
     [self reset];
 //    1. 设置x轴文案
     [self setXAxisData:xAxis];
-    if (datas.count == 0) {
-        nodataLabel.hidden = NO;
-        backView.hidden = YES;
-        [yLabels enumerateObjectsUsingBlock:^(UILabel * obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            obj.hidden = YES;
-        }];
-        nodataLabel.text = self.noDataDes;
-        nodataLabel.textColor = self.noDataDesColor;
-        nodataLabel.font = self.noDataDesFont;
+    if (datas.count == 0 ) {
+        if ( self.noDataDes) {//设置了无数据提示才显示，没设置则不显示
+            nodataLabel.hidden = NO;
+            backView.hidden = YES;
+            [yLabels enumerateObjectsUsingBlock:^(UILabel * obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                obj.hidden = YES;
+            }];
+            nodataLabel.text = self.noDataDes;
+            nodataLabel.textColor = self.noDataDesColor;
+            nodataLabel.font = self.noDataDesFont;
+        }
         return;
     }
     backView.hidden = NO;
